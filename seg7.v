@@ -8,7 +8,6 @@ module seg7 (Data, Addr, Sel, Resetn, Clock, H5, H4, H3, H2, H1, H0);
     wire [6:0] nData;
     assign nData = ~Data;
 
-	 // ... add code here
 	 regne reg_R0 (nData, Clock, Resetn, Sel & (Addr == 3'b000), H0);
 	 regne reg_R1 (nData, Clock, Resetn, Sel & (Addr == 3'b001), H1); // 0x2001 (Write to register connected to HEX1)
 	 regne reg_R2 (nData, Clock, Resetn, Sel & (Addr == 3'b010), H2);
