@@ -99,94 +99,89 @@ module proc(DIN, Resetn, Clock, Run, DOUT, ADDR, W);
                     end
                     mvt: begin
                         if(!IMM) Sel=rY;
-								else Sel=Sel_D8;
-								Rin=Xreg;
-								Done=1'b1;
+			else Sel=Sel_D8;
+			Rin=Xreg;
+			Done=1'b1;
                     end
                     add, sub, and_: begin
                         Sel=rX;
-								Ain=1'b1;
+			Ain=1'b1;
                     end
                     ld, st: begin
                         Sel=rY;
-								ADDRin=1'b1;
+			ADDRin=1'b1;
                     end
-						  b: begin
-								case(cond)
-									none: begin
-										Sel=Sel_D;
-//										Rin=Xreg;
-										Rin[7]=1'b1;
-										Done=1'b1;
-									end
-									eq: begin
-										if(z) begin
-										Sel=Sel_D;
-//										Rin=Xreg;
-										Rin[7]=1'b1;
-										Done=1'b1;
-										end
-										else Done = 1'b1;
-									end
-									ne: begin
-										if(!z) begin
-										Sel=Sel_D;
-//										Rin=Xreg;
-										Rin[7]=1'b1;
-										Done=1'b1;
-										end
-										else Done = 1'b1;
-									end
-									cc: begin
-										if(!c) begin
-										Sel=Sel_D;
-//										Rin=Xreg;
-										Rin[7]=1'b1;
-										Done=1'b1;
-										end
-										else Done = 1'b1;
-									end
-									cs: begin
-										if(c) begin
-										Sel=Sel_D;
-//										Rin=Xreg;
-										Rin[7]=1'b1;
-										Done=1'b1;
-										end
-										else Done = 1'b1;
-									end
-									default: ;
-								endcase
-								end
+			b: begin
+				case(cond)
+				   none: begin
+					Sel=Sel_D;
+					Rin[7]=1'b1;
+					Done=1'b1;
+				   end
+				   eq: begin
+					if(z) begin
+					Sel=Sel_D;
+					Rin[7]=1'b1;
+					Done=1'b1;
+				   end
+					else Done = 1'b1;
+				   end
+				   ne: begin
+					if(!z) begin
+					Sel=Sel_D;
+					Rin[7]=1'b1;
+					Done=1'b1;
+				   end
+					else Done = 1'b1;
+				   end
+				   cc: begin
+					if(!c) begin
+					Sel=Sel_D;
+					Rin[7]=1'b1;
+					Done=1'b1;
+				   end
+					else Done = 1'b1;
+				   end
+				   cs: begin
+					if(c) begin
+					Sel=Sel_D;
+					Rin[7]=1'b1;
+					Done=1'b1;
+				   end
+					else Done = 1'b1;
+				   end
+			           default: ;
+				endcase
+				end
                     default: ;
                 endcase
-				end
+	end
             T4: // define signals T2
                 case (III)
                     add: begin
                         if(!IMM) Sel=rY;
-								else Sel=Sel_D;
-								AddSub=1'b0;
+			else Sel=Sel_D;
+			AddSub=1'b0;
                         Gin=1'b1;
                     end
                     sub: begin
                         if(!IMM) Sel=rY;
-								else Sel=Sel_D;
+			else Sel=Sel_D;
                         AddSub=1'b1;
-								Gin=1'b1;
+			Gin=1'b1;
                     end
                     and_: begin
                         if(!IMM) Sel=rY;
-								else Sel=Sel_D;
+			else Sel=Sel_D;
                         ALUand=1'b1;
-								Gin=1'b1;
+			Gin=1'b1;
                     end
                     ld: // wait cycle for synchronous memory
                         ;
                     st: begin
                         Sel=rX;
-								DOUTin=1'b1;
-								W_D=1'b1;
+			DOUTin=1'b1;
+			W_D=1'b1;
                     end
                     default: ; 
                 endcase
@@ -194,13 +189,13 @@ module proc(DIN, Resetn, Clock, Run, DOUT, ADDR, W);
                 case (III)
                     add, sub, and_: begin
                         Sel=Sel_G;
-								Rin=Xreg;
-								Done=1'b1;
+			Rin=Xreg;
+			Done=1'b1;
                     end
                     ld: begin
                         Sel=Sel_DIN;
-								Rin=Xreg;
-								Done=1'b1;
+			Rin=Xreg;
+			Done=1'b1;
                     end
                     st: // wait cycle for synhronous memory
                         Done=1'b1;
